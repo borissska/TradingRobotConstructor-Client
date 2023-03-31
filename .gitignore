@@ -3,8 +3,10 @@ __pycache__/
 *.py[cod]
 *$py.class
 
+# Qt Designer resources not needed
 *.svg
 *.qrc
+# Individual info
 config.py
 
 # C extensions
