@@ -4,7 +4,7 @@ __pycache__/
 *$py.class
 
 *.svg
-.qrc
+*.qrc
 config.py
 
 # C extensions
