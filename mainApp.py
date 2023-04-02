@@ -17,10 +17,10 @@ class Ui_MainWindow(object):
         font.setFamily("Arial")
         MainWindow.setFont(font)
         MainWindow.setStyleSheet("QPushButton {\n"
-"    text-align: center;\n"
-"    padding: 10px;\n"
-"}\n"
-"")
+                                 "    text-align: center;\n"
+                                 "    padding: 10px;\n"
+                                 "}\n"
+                                 "")
         self.centralWidget = QtWidgets.QWidget(MainWindow)
         self.centralWidget.setObjectName("centralWidget")
         self.horizontalLayout = QtWidgets.QHBoxLayout(self.centralWidget)

@@ -1,4 +1,6 @@
 import sys
+import socket
+import json
 
 from PyQt6.QtCore import QEvent
 from PyQt6.QtWidgets import QApplication, QMainWindow, QMenu
@@ -23,6 +25,9 @@ class MainWindow(QMainWindow):
             lambda: self.ui.mainStackedWidget.setCurrentWidget(self.ui.newStrategyWidget))
         self.ui.accountBtn.clicked.connect(
             lambda: self.ui.mainStackedWidget.setCurrentWidget(self.ui.accountWidget))
+
+        # testStrategyBtnClick
+        self.ui.testStrategyBtn.clicked.connect(lambda: self.sendTestStrategyData())
 
         # parameterStackedWidget
         self.ui.parameterStackedWidget.setCurrentWidget(self.ui.disbalanceWidget)
@@ -53,8 +58,10 @@ class MainWindow(QMainWindow):
     def createParameter(self):
         if self.ui.parameterSelectionComboBox.currentText() == "Disbalance":
             self.ui.parametersListWidget.addItem(
-                f"{self.ui.parameterSelectionComboBox.currentText()}(percent:{self.ui.candleBodyPercentageSlider.value()}; "
-                f"decreasing:{self.ui.yesChangingOfWeightBtn.isChecked()}; weight:{self.ui.weightSlider.value()}; "
+                f"{self.ui.parameterSelectionComboBox.currentText()}"
+                f"(percent:{self.ui.candleBodyPercentageSlider.value()}; "
+                f"decreasing:{self.ui.yesChangingOfWeightBtn.isChecked()}; "
+                f"weight:{self.ui.weightSlider.value()}; "
                 f"interval:{self.ui.intervalSelectionComboBox.currentText()})")
 
     # function which helps with enabling or disabling parametersListWidget
@@ -79,11 +86,24 @@ class MainWindow(QMainWindow):
         if self.ui.noChangingOfWeightBtn.isChecked():
             self.ui.yesChangingOfWeightBtn.setChecked(False)
 
+    def sendTestStrategyData(self):
+        list_items = [self.ui.parametersListWidget.item(row).text() for row in
+                      range(self.ui.parametersListWidget.count())]
+
+        json_list = {"testStrategy": list_items}
+        sock.send(json.dumps(json_list).encode('utf-8'))
+
 
 if __name__ == "__main__":
+
+    sock = socket.socket()
+    sock.connect(('localhost', 9091))
+
     app = QApplication(sys.argv)
 
     window = MainWindow()
     window.show()
 
-    sys.exit(app.exec())
+    if app.exec():
+        sock.close()
+        sys.exit()
