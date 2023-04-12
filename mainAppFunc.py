@@ -8,10 +8,14 @@ from mainApp import Ui_MainWindow
 
 
 class MainWindow(QMainWindow):
-    def __init__(self):
+    def __init__(self, client, login):
         super(MainWindow, self).__init__()
+        self.login = login
+        self.client = client
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
+
+        self.ui.loginLbl.setText(f"{self.login}")
 
         self.ui.parametersListWidget.installEventFilter(self)
 
@@ -27,7 +31,7 @@ class MainWindow(QMainWindow):
             lambda: self.ui.mainStackedWidget.setCurrentWidget(self.ui.accountWidget))
 
         # testStrategyBtnClick
-        self.ui.testStrategyBtn.clicked.connect(lambda: self.sendTestStrategyData())
+        # self.ui.testStrategyBtn.clicked.connect(lambda: self.sendTestStrategyData())
 
         # parameterStackedWidget
         self.ui.parameterStackedWidget.setCurrentWidget(self.ui.disbalanceWidget)
@@ -40,7 +44,7 @@ class MainWindow(QMainWindow):
         self.ui.yesChangingOfWeightBtn.clicked.connect(self.yesBtnChoose)
         self.ui.noChangingOfWeightBtn.clicked.connect(self.noBtnChoose)
 
-        self.ui.addParameterBtn.clicked.connect(self.createParameter)
+        self.ui.addParameterBtn.clicked.connect(self.addDisbalanceParameter)
 
     def eventFilter(self, source, e):
         if e.type() == QEvent.Type.ContextMenu and source is self.ui.parametersListWidget:
@@ -48,14 +52,14 @@ class MainWindow(QMainWindow):
             menu.addAction('Change')
             menu.addAction('Delete')
 
-            # menu.triggered.connect(self.ui.parametersListWidget.selected)
+            menu.triggered.connect(self.ui.parametersListWidget.selected)
 
             if menu.exec(e.globalPos()):
                 self.item = source.itemAt(e.pos())
             return True
         return super().eventFilter(source, e)
 
-    def createParameter(self):
+    def addDisbalanceParameter(self):
         if self.ui.parameterSelectionComboBox.currentText() == "Disbalance":
             self.ui.parametersListWidget.addItem(
                 f"{self.ui.parameterSelectionComboBox.currentText()}"
@@ -86,24 +90,14 @@ class MainWindow(QMainWindow):
         if self.ui.noChangingOfWeightBtn.isChecked():
             self.ui.yesChangingOfWeightBtn.setChecked(False)
 
-    def sendTestStrategyData(self):
-        list_items = [self.ui.parametersListWidget.item(row).text() for row in
-                      range(self.ui.parametersListWidget.count())]
+    # def sendTestStrategyData(self):
+    #     list_items = [self.ui.parametersListWidget.item(row).text() for row in
+    #                   range(self.ui.parametersListWidget.count())]
+    #
+    #     json_list = {"strategyName": self.ui.strategyNameLineEdit.text(), "testStrategy": list_items}
+    #     send(json.dumps(json_list).encode('utf-8'))
 
-        json_list = {"testStrategy": list_items}
-        sock.send(json.dumps(json_list).encode('utf-8'))
 
-
-if __name__ == "__main__":
-
-    sock = socket.socket()
-    sock.connect(('localhost', 9091))
-
-    app = QApplication(sys.argv)
-
-    window = MainWindow()
+def showMainApp(client, login):
+    window = MainWindow(client, login)
     window.show()
-
-    if app.exec():
-        sock.close()
-        sys.exit()
