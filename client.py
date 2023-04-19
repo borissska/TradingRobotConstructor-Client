@@ -15,9 +15,6 @@ class Client:
     def sender(self, message_type, message):
         message = {"type": message_type, "message": message}
         self.sock.send(json.dumps(message).encode('utf-8'))
-        # while json.loads(self.sock.recv(1024).decode('utf-8')) != "Got it!":
-        #     print("Got it!")
-        #     self.sock.send(json.dumps(message).encode('utf-8'))
 
     def getter(self):
         try:
@@ -37,6 +34,9 @@ class Client:
 
     def addNewUser(self, email, login, password):
         self.sender(message_type="add new user", message=[f"{email}", f"{login}", f"{password}"])
+
+    def sendTestStrategyData(self, data):
+        self.sender(message_type="test new strategy", message=data)
 
 
 if __name__ == '__main__':

@@ -49,4 +49,6 @@ def showLoginForm(client):
     app = QApplication(sys.argv)
     login_form = LoginForm(client)
     login_form.show()
-    sys.exit(app.exec())
+    if app.exec():
+        client.sender(message_type="disconnect", message="disconnect")
+        sys.exit()

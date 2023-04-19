@@ -31,7 +31,7 @@ class MainWindow(QMainWindow):
             lambda: self.ui.mainStackedWidget.setCurrentWidget(self.ui.accountWidget))
 
         # testStrategyBtnClick
-        # self.ui.testStrategyBtn.clicked.connect(lambda: self.sendTestStrategyData())
+        self.ui.testStrategyBtn.clicked.connect(lambda: self.sendTestStrategyData())
 
         # parameterStackedWidget
         self.ui.parameterStackedWidget.setCurrentWidget(self.ui.disbalanceWidget)
@@ -44,7 +44,7 @@ class MainWindow(QMainWindow):
         self.ui.yesChangingOfWeightBtn.clicked.connect(self.yesBtnChoose)
         self.ui.noChangingOfWeightBtn.clicked.connect(self.noBtnChoose)
 
-        self.ui.addParameterBtn.clicked.connect(self.addDisbalanceParameter)
+        self.ui.addParameterBtn.clicked.connect(self.addElement)
 
     def eventFilter(self, source, e):
         if e.type() == QEvent.Type.ContextMenu and source is self.ui.parametersListWidget:
@@ -59,7 +59,7 @@ class MainWindow(QMainWindow):
             return True
         return super().eventFilter(source, e)
 
-    def addDisbalanceParameter(self):
+    def addElement(self):
         if self.ui.parameterSelectionComboBox.currentText() == "Disbalance":
             self.ui.parametersListWidget.addItem(
                 f"{self.ui.parameterSelectionComboBox.currentText()}"
@@ -90,12 +90,17 @@ class MainWindow(QMainWindow):
         if self.ui.noChangingOfWeightBtn.isChecked():
             self.ui.yesChangingOfWeightBtn.setChecked(False)
 
-    # def sendTestStrategyData(self):
-    #     list_items = [self.ui.parametersListWidget.item(row).text() for row in
-    #                   range(self.ui.parametersListWidget.count())]
-    #
-    #     json_list = {"strategyName": self.ui.strategyNameLineEdit.text(), "testStrategy": list_items}
-    #     send(json.dumps(json_list).encode('utf-8'))
+    def sendTestStrategyData(self):
+        list_items = [self.ui.parametersListWidget.item(row).text() for row in
+                      range(self.ui.parametersListWidget.count())]
+
+        json_list = {"user_name": self.ui.loginLbl.text(),
+                     "ticker": self.ui.tickerLineEdit.text(),
+                     "leverage": self.ui.leverageLineEdit.text(),
+                     "percent_of_capital": self.ui.percentofCapitalLineEdit.text(),
+                     "strategy_name": self.ui.strategyNameLineEdit.text(),
+                     "test_strategy": list_items}
+        self.client.sendTestStrategyData(json_list)
 
 
 def showMainApp(client, login):

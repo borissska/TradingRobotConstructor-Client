@@ -173,7 +173,7 @@
     <item>
      <widget class="QStackedWidget" name="mainStackedWidget">
       <property name="currentIndex">
-       <number>3</number>
+       <number>2</number>
       </property>
       <widget class="QWidget" name="homeWidget"/>
       <widget class="QWidget" name="myStrategiesWidget">
@@ -505,7 +505,7 @@
                     </font>
                    </property>
                    <property name="text">
-                    <string>Weight Selection:</string>
+                    <string>Weight Selection</string>
                    </property>
                   </widget>
                  </item>
@@ -559,7 +559,7 @@
                     </font>
                    </property>
                    <property name="text">
-                    <string>Interval Selection:</string>
+                    <string>Interval Selection</string>
                    </property>
                   </widget>
                  </item>
@@ -572,42 +572,42 @@
                    </property>
                    <item>
                     <property name="text">
-                     <string>15 min</string>
+                     <string>15min</string>
                     </property>
                    </item>
                    <item>
                     <property name="text">
-                     <string>30 min</string>
+                     <string>30min</string>
                     </property>
                    </item>
                    <item>
                     <property name="text">
-                     <string>1 hour</string>
+                     <string>1hour</string>
                     </property>
                    </item>
                    <item>
                     <property name="text">
-                     <string>4 hours</string>
+                     <string>4hours</string>
                     </property>
                    </item>
                    <item>
                     <property name="text">
-                     <string>12 hours</string>
+                     <string>12hours</string>
                     </property>
                    </item>
                    <item>
                     <property name="text">
-                     <string>1 day</string>
+                     <string>1day</string>
                     </property>
                    </item>
                    <item>
                     <property name="text">
-                     <string>1 week</string>
+                     <string>1week</string>
                     </property>
                    </item>
                    <item>
                     <property name="text">
-                     <string>1 month</string>
+                     <string>1month</string>
                     </property>
                    </item>
                   </widget>
@@ -673,6 +673,69 @@
                <widget class="QWidget" name="widget" native="true">
                 <layout class="QVBoxLayout" name="verticalLayout_15">
                  <item>
+                  <widget class="QLabel" name="tickerLbl">
+                   <property name="font">
+                    <font>
+                     <pointsize>14</pointsize>
+                    </font>
+                   </property>
+                   <property name="text">
+                    <string>Ticker</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QLineEdit" name="tickerLineEdit">
+                   <property name="font">
+                    <font>
+                     <pointsize>14</pointsize>
+                    </font>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QLabel" name="leverageLbl">
+                   <property name="font">
+                    <font>
+                     <pointsize>14</pointsize>
+                    </font>
+                   </property>
+                   <property name="text">
+                    <string>Leverage</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QLineEdit" name="leverageLineEdit">
+                   <property name="font">
+                    <font>
+                     <pointsize>14</pointsize>
+                    </font>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QLabel" name="percentofCapitalLbl">
+                   <property name="font">
+                    <font>
+                     <pointsize>14</pointsize>
+                    </font>
+                   </property>
+                   <property name="text">
+                    <string>Percent of Capital</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QLineEdit" name="percentofCapitalLineEdit">
+                   <property name="font">
+                    <font>
+                     <pointsize>14</pointsize>
+                    </font>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
                   <widget class="QLabel" name="strategyNameLbl">
                    <property name="font">
                     <font>
@@ -680,7 +743,7 @@
                     </font>
                    </property>
                    <property name="text">
-                    <string>Strategy Name:</string>
+                    <string>Strategy Name</string>
                    </property>
                   </widget>
                  </item>
