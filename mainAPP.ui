@@ -357,7 +357,7 @@
                 </item>
                 <item>
                  <property name="text">
-                  <string>Fib Div</string>
+                  <string>SMA</string>
                  </property>
                 </item>
                 <item>
@@ -476,8 +476,43 @@
                   </item>
                  </layout>
                 </widget>
-                <widget class="QWidget" name="page_2">
-                 <layout class="QVBoxLayout" name="verticalLayout_11"/>
+                <widget class="QWidget" name="smaWidget">
+                 <layout class="QVBoxLayout" name="verticalLayout_11">
+                  <item>
+                   <widget class="QLabel" name="periodSMALbl">
+                    <property name="font">
+                     <font>
+                      <pointsize>14</pointsize>
+                     </font>
+                    </property>
+                    <property name="text">
+                     <string>Period</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QLineEdit" name="periodSMALineEdit">
+                    <property name="font">
+                     <font>
+                      <pointsize>14</pointsize>
+                     </font>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <spacer name="verticalSpacer_5">
+                    <property name="orientation">
+                     <enum>Qt::Vertical</enum>
+                    </property>
+                    <property name="sizeHint" stdset="0">
+                     <size>
+                      <width>20</width>
+                      <height>40</height>
+                     </size>
+                    </property>
+                   </spacer>
+                  </item>
+                 </layout>
                 </widget>
                </widget>
               </item>

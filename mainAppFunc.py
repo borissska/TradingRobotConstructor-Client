@@ -67,6 +67,12 @@ class MainWindow(QMainWindow):
                 f"decreasing:{self.ui.yesChangingOfWeightBtn.isChecked()}; "
                 f"weight:{self.ui.weightSlider.value()}; "
                 f"interval:{self.ui.intervalSelectionComboBox.currentText()})")
+        elif self.ui.parameterSelectionComboBox.currentText() == "SMA":
+            self.ui.parametersListWidget.addItem(
+                f"{self.ui.parameterSelectionComboBox.currentText()}"
+                f"(period:{self.ui.periodSMALineEdit.text()}; "
+                f"weight:{self.ui.weightSlider.value()}; "
+                f"interval:{self.ui.intervalSelectionComboBox.currentText()})")
 
     # function which helps with enabling or disabling parametersListWidget
     def changeEnableOfParametersList(self):
@@ -79,8 +85,8 @@ class MainWindow(QMainWindow):
     def chooseParameterStackedWidget(self):
         if self.ui.parameterSelectionComboBox.currentText() == "Disbalance":
             self.ui.parameterStackedWidget.setCurrentWidget(self.ui.disbalanceWidget)
-        elif self.ui.parameterSelectionComboBox.currentText() == "Fib Div":
-            self.ui.parameterStackedWidget.setCurrentWidget(self.ui.page_2)
+        elif self.ui.parameterSelectionComboBox.currentText() == "SMA":
+            self.ui.parameterStackedWidget.setCurrentWidget(self.ui.smaWidget)
 
     def yesBtnChoose(self):
         if self.ui.yesChangingOfWeightBtn.isChecked():
