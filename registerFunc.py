@@ -1,7 +1,8 @@
 import sys
 from register import Ui_LoginForm
 import mainAppFunc
-from PyQt6.QtWidgets import QWidget, QApplication
+from customQDialog import CustomDialogWarning
+from PyQt6.QtWidgets import QWidget, QApplication, QDialog
 
 
 class LoginForm(QWidget):
@@ -27,7 +28,8 @@ class LoginForm(QWidget):
         password = self.ui.passwordLineEdit.text()
 
         if self.client.checkEmail(email) == "Exist":
-            pass  # warning (this user already exist, login)
+            dlg = CustomDialogWarning("This email does not exist!")
+            dlg.exec()
         else:
             self.client.addNewUser(email, login, password)
             if self.client.checkEmail(email) == "Exist":
@@ -42,7 +44,8 @@ class LoginForm(QWidget):
             LoginForm.close(self)
             mainAppFunc.showMainApp(self.client, login)
         else:
-            pass  # warning (this user does not exist, register)
+            dlg = CustomDialogWarning("There is no such user!")
+            dlg.exec()
 
 
 def showLoginForm(client):

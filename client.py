@@ -18,7 +18,7 @@ class Client:
 
     def getter(self):
         try:
-            data = json.loads(self.sock.recv(1024).decode('utf-8'))
+            data = json.loads(self.sock.recv(10000).decode('utf-8'))
         except Exception as e:
             print(e)
             data = ''
@@ -37,6 +37,10 @@ class Client:
 
     def sendTestStrategyData(self, data):
         self.sender(message_type="test new strategy", message=data)
+
+    def updateStrategies(self, login):
+        self.sender(message_type="update strategies", message=login)
+        return self.getter()["message"]
 
 
 if __name__ == '__main__':
