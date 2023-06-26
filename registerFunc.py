@@ -28,7 +28,7 @@ class LoginForm(QWidget):
         password = self.ui.passwordLineEdit.text()
 
         if self.client.checkEmail(email) == "Exist":
-            dlg = CustomDialogWarning("This email does not exist!")
+            dlg = CustomDialogWarning("This email already exists!")
             dlg.exec()
         else:
             self.client.addNewUser(email, login, password)

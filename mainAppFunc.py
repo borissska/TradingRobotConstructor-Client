@@ -37,7 +37,8 @@ class MainWindow(QMainWindow):
             lambda: self.ui.mainStackedWidget.setCurrentWidget(self.ui.accountWidget))
 
         # testStrategyBtnClick
-        self.ui.testStrategyBtn.clicked.connect(lambda: self.sendTestStrategyData())
+        self.ui.testStrategyBtn.clicked.connect(
+            lambda: self.sendTestStrategyData())
 
         # parameterStackedWidget
         self.ui.parameterStackedWidget.setCurrentWidget(self.ui.disbalanceWidget)
@@ -51,6 +52,20 @@ class MainWindow(QMainWindow):
         self.ui.noChangingOfWeightBtn.clicked.connect(self.noBtnChoose)
 
         self.ui.addParameterBtn.clicked.connect(self.addElement)
+
+        self.ui.marketConnectBtn.clicked.connect(self.addMarket)
+        #
+
+    def addMarket(self):
+        if self.ui.marketChooseComboBox.currentText() == "Bybit":
+            if (self.ui.secretAPILineEdit.text() is not None) and (self.ui.keyAPILineEdit.text() is not None):
+                balance = self.client.checkMarketData(market=self.ui.marketChooseComboBox.currentText(),
+                                                      key=self.ui.keyAPILineEdit.text(),
+                                                      secret=self.ui.secretAPILineEdit.text())
+                if balance is not None:
+                    self.ui.capitalLbl.setText(f"{balance}")
+                else:
+                    CustomDialogWarning("The data entered is incorrect!")
 
     def updateStrategies(self):
         strategies = self.client.updateStrategies(self.login)
@@ -71,7 +86,7 @@ class MainWindow(QMainWindow):
             menu.addAction('Change')
             menu.addAction('Delete')
 
-            menu.triggered.connect(self.ui.parametersListWidget.selected)
+            menu.triggered.connect(self.ui.parametersListWidget.selectedItems)
 
             if menu.exec(e.globalPos()):
                 self.item = source.itemAt(e.pos())
@@ -154,6 +169,18 @@ class MainWindow(QMainWindow):
             dlg.exec()
             return
 
+    def deleteStrategy(self, user_name, strategy_name):
+        print(strategy_name)
+        child = self.ui.scrollAreaWidgetContents.findChild(QtWidgets.QFrame, f"{strategy_name}")
+        child.deleteLater()
+        pass
+
+    def changeStrategyState(self, state, strategy_name):
+        print(f"{state}")
+        child = self.ui.scrollAreaWidgetContents.findChild(QtWidgets.QFrame, f"{strategy_name}")
+        label = child.findChild(QtWidgets.QLabel, "stateLbl")
+        label.setText(f"State: {state}")
+
     @staticmethod
     def isValid(value, bottom, top, name):
         if not value.isdigit():
@@ -185,7 +212,7 @@ class MainWindow(QMainWindow):
         self.ui.strategyOne.setSizePolicy(sizePolicy)
         self.ui.strategyOne.setFrameShape(QtWidgets.QFrame.Shape.Box)
         self.ui.strategyOne.setFrameShadow(QtWidgets.QFrame.Shadow.Raised)
-        self.ui.strategyOne.setObjectName(f"{user_name}")
+        self.ui.strategyOne.setObjectName(f"{strategy_name}")
         self.ui.verticalLayout_17 = QtWidgets.QVBoxLayout(self.ui.strategyOne)
         self.ui.verticalLayout_17.setObjectName("verticalLayout_17")
         self.ui.strategyNameWidget = QtWidgets.QWidget(self.ui.strategyOne)
@@ -210,23 +237,30 @@ class MainWindow(QMainWindow):
         self.ui.strategyBtnsWidget.setObjectName("strategyBtnsWidget")
         self.ui.horizontalLayout_7 = QtWidgets.QHBoxLayout(self.ui.strategyBtnsWidget)
         self.ui.horizontalLayout_7.setObjectName("horizontalLayout_7")
+        self.ui.deleteStrategyBtn = QtWidgets.QPushButton(self.ui.strategyBtnsWidget)
+        self.ui.deleteStrategyBtn.setFont(font)
+        self.ui.deleteStrategyBtn.setObjectName("deleteStrategyBtn")
+        self.ui.deleteStrategyBtn.clicked.connect(lambda: self.deleteStrategy(user_name, strategy_name))
+        self.ui.horizontalLayout_7.addWidget(self.ui.deleteStrategyBtn)
         self.ui.stopStrategyBtn = QtWidgets.QPushButton(self.ui.strategyBtnsWidget)
         self.ui.stopStrategyBtn.setFont(font)
         self.ui.stopStrategyBtn.setObjectName("stopStrategyBtn")
+        self.ui.stopStrategyBtn.clicked.connect(lambda: self.changeStrategyState("stopped", strategy_name))
         self.ui.horizontalLayout_7.addWidget(self.ui.stopStrategyBtn)
         self.ui.runStrategyBtn = QtWidgets.QPushButton(self.ui.strategyBtnsWidget)
         self.ui.runStrategyBtn.setFont(font)
         self.ui.runStrategyBtn.setObjectName("runStrategyBtn")
+        self.ui.runStrategyBtn.clicked.connect(lambda: self.changeStrategyState("working", strategy_name))
         self.ui.horizontalLayout_7.addWidget(self.ui.runStrategyBtn)
         self.ui.verticalLayout_17.addWidget(self.ui.strategyBtnsWidget)
         self.ui.strategyStateWidget = QtWidgets.QWidget(self.ui.strategyOne)
         self.ui.strategyStateWidget.setObjectName("strategyStateWidget")
         self.ui.horizontalLayout_8 = QtWidgets.QHBoxLayout(self.ui.strategyStateWidget)
         self.ui.horizontalLayout_8.setObjectName("horizontalLayout_8")
-        self.ui.label_6 = QtWidgets.QLabel(self.ui.strategyStateWidget)
-        self.ui.label_6.setFont(font)
-        self.ui.label_6.setObjectName("label_6")
-        self.ui.horizontalLayout_8.addWidget(self.ui.label_6)
+        self.ui.stateLbl = QtWidgets.QLabel(self.ui.strategyStateWidget)
+        self.ui.stateLbl.setFont(font)
+        self.ui.stateLbl.setObjectName("stateLbl")
+        self.ui.horizontalLayout_8.addWidget(self.ui.stateLbl)
         spacerItem1 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Policy.Expanding,
                                             QtWidgets.QSizePolicy.Policy.Minimum)
         self.ui.horizontalLayout_8.addItem(spacerItem1)
@@ -241,9 +275,10 @@ class MainWindow(QMainWindow):
         self.ui.verticalLayout_13.addWidget(self.ui.strategyOne)
 
         self.ui.strategyNameLbl_2.setText(_translate("MainWindow", f"Strategy Name: {strategy_name}"))
+        self.ui.deleteStrategyBtn.setText(_translate("MainWindow", "Delete Strategy"))
         self.ui.stopStrategyBtn.setText(_translate("MainWindow", "Stop Strategy"))
         self.ui.runStrategyBtn.setText(_translate("MainWindow", "Run Strategy"))
-        self.ui.label_6.setText(_translate("MainWindow", f"State: {state}"))
+        self.ui.stateLbl.setText(_translate("MainWindow", f"State: {state}"))
         self.ui.currentYieldLbl.setText(_translate("MainWindow", f"Current Yield: {current_profit}"))
 
 

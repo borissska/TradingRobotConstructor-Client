@@ -42,6 +42,10 @@ class Client:
         self.sender(message_type="update strategies", message=login)
         return self.getter()["message"]
 
+    def checkMarketData(self, market, key, secret):
+        self.sender(message_type="connect to market", message=[f"{market}", f"{key}", f"{secret}"])
+        return self.getter()["message"]
+
 
 if __name__ == '__main__':
     client = Client()
