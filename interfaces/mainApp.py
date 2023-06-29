@@ -135,7 +135,7 @@ class Ui_MainWindow(object):
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(self.label_10.sizePolicy().hasHeightForWidth())
-        self.pixmap = QtGui.QPixmap("icons/BTCUSDT-graf.png")
+        self.pixmap = QtGui.QPixmap("../icons/BTCUSDT-graf.png")
         self.pixmap = self.pixmap.scaled(1050, 1000, QtCore.Qt.AspectRatioMode.KeepAspectRatio)
         self.label_10.setPixmap(self.pixmap)
         self.label_10.setSizePolicy(sizePolicy)

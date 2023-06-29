@@ -1,10 +1,6 @@
-from threading import *
 from socket import *
 import json
-from time import sleep, time
-from multiprocessing import Process
-
-from registerFunc import showLoginForm
+from interfaceConn.registerFunc import showLoginForm
 
 
 class Client:

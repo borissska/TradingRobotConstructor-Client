@@ -1,15 +1,11 @@
-import datetime
 import os
-import sys
-import socket
-import json
 
 from PyQt6.QtCore import QEvent
 from PyQt6 import QtCore, QtGui, QtWidgets
-from PyQt6.QtWidgets import QApplication, QMainWindow, QMenu
+from PyQt6.QtWidgets import QMainWindow, QMenu
 
-from customQDialog import CustomDialogWarning
-from mainApp import Ui_MainWindow
+from interfaceConn.customQDialog import CustomDialogWarning
+from interfaces.mainApp import Ui_MainWindow
 
 
 class MainWindow(QMainWindow):
