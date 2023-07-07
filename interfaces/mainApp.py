@@ -1,4 +1,4 @@
-# Form implementation generated from reading ui file 'C:\diplomeProject\clientApp\mainAPP.ui'
+# Form implementation generated from reading ui file 'C:\diplomeProject\clientApp\interfaces\mainAPP.ui'
 #
 # Created by: PyQt6 UI code generator 6.4.0
 #
@@ -135,12 +135,10 @@ class Ui_MainWindow(object):
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(self.label_10.sizePolicy().hasHeightForWidth())
-        self.pixmap = QtGui.QPixmap("../icons/BTCUSDT-graf.png")
-        self.pixmap = self.pixmap.scaled(1050, 1000, QtCore.Qt.AspectRatioMode.KeepAspectRatio)
-        self.label_10.setPixmap(self.pixmap)
         self.label_10.setSizePolicy(sizePolicy)
-        self.label_10.setStyleSheet("background-image:url(:icons/BTCUSDT-graf.png)")
+        self.label_10.setStyleSheet("background-image:url(:/BTCUSDT-chart/icons/BTCUSDT-graf.png)")
         self.label_10.setText("")
+        self.label_10.setPixmap(QtGui.QPixmap(":/BTCUSDT-chart/icons/BTCUSDT-graf.png"))
         self.label_10.setScaledContents(True)
         self.label_10.setObjectName("label_10")
         self.verticalLayout_19.addWidget(self.label_10)
@@ -161,7 +159,7 @@ class Ui_MainWindow(object):
         self.scrollArea.setWidgetResizable(True)
         self.scrollArea.setObjectName("scrollArea")
         self.scrollAreaWidgetContents = QtWidgets.QWidget()
-        self.scrollAreaWidgetContents.setGeometry(QtCore.QRect(0, 0, 1154, 812))
+        self.scrollAreaWidgetContents.setGeometry(QtCore.QRect(0, 0, 98, 28))
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Policy.Preferred, QtWidgets.QSizePolicy.Policy.Expanding)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
@@ -375,7 +373,6 @@ class Ui_MainWindow(object):
         font.setPointSize(14)
         self.intervalSelectionComboBox.setFont(font)
         self.intervalSelectionComboBox.setObjectName("intervalSelectionComboBox")
-        self.intervalSelectionComboBox.addItem("")
         self.intervalSelectionComboBox.addItem("")
         self.intervalSelectionComboBox.addItem("")
         self.intervalSelectionComboBox.addItem("")
@@ -603,7 +600,7 @@ class Ui_MainWindow(object):
         MainWindow.setCentralWidget(self.centralWidget)
 
         self.retranslateUi(MainWindow)
-        self.mainStackedWidget.setCurrentIndex(3)
+        self.mainStackedWidget.setCurrentIndex(2)
         self.parameterStackedWidget.setCurrentIndex(2)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
@@ -639,7 +636,6 @@ class Ui_MainWindow(object):
         self.intervalSelectionComboBox.setItemText(4, _translate("MainWindow", "12hours"))
         self.intervalSelectionComboBox.setItemText(5, _translate("MainWindow", "1day"))
         self.intervalSelectionComboBox.setItemText(6, _translate("MainWindow", "1week"))
-        self.intervalSelectionComboBox.setItemText(7, _translate("MainWindow", "1month"))
         self.changeParameterBtn.setText(_translate("MainWindow", "Change Parameter"))
         self.addParameterBtn.setText(_translate("MainWindow", "Add Parameter"))
         self.tickerLbl.setText(_translate("MainWindow", "Ticker"))
